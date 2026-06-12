@@ -107,9 +107,8 @@ nav.scrolled .nav-logo-img{filter:sepia(1) saturate(0.8) brightness(0.45)}
 .hero-logo-wrap{margin-bottom:44px;display:flex;justify-content:center}
 .hero-logo{
   width:150px;height:150px;object-fit:contain;
-  filter:sepia(1) saturate(0.4) brightness(1.6) contrast(0.9);
+  filter:sepia(1) saturate(0.4) brightness(1.6) contrast(0.9) drop-shadow(0 0 40px rgba(196,154,108,0.3));
   animation:logoBreath 5s ease-in-out infinite;
-  drop-shadow:0 0 40px rgba(196,154,108,0.3);
 }
 @keyframes logoBreath{
   0%,100%{filter:sepia(1) saturate(0.4) brightness(1.5) contrast(0.9) drop-shadow(0 0 20px rgba(196,154,108,0.2))}
@@ -779,7 +778,7 @@ footer{
 <section class="contact" id="contact">
   <div class="contact-grid">
     <div>
-      <div class="contact-logo-badge reveal" style="display:flex;align-items:center;gap:12px;margin-bottom:28px"><img class="contact-logo-img" alt="EMC Logo" style="width:40px;height:40px;object-fit:contain;filter:sepia(1) saturate(0.6) brightness(0.55)"><span style="font-family:'Cormorant Garamond',serif;font-size:1rem;letter-spacing:.25em;color:var(--brown-warm);text-transform:uppercase">EMC Contracting</span></div>
+      <div class="contact-logo-badge reveal" style="display:flex;align-items:center;gap:12px;margin-bottom:28px"><span class="contact-logo-slot"></span><span style="font-family:'Cormorant Garamond',serif;font-size:1rem;letter-spacing:.25em;color:var(--brown-warm);text-transform:uppercase">EMC Contracting</span></div>
       <div class="section-eyebrow reveal">Get In Touch</div>
       <h2 class="section-title reveal">Start Your<br><em>Project Today</em></h2>
       <p class="section-body reveal">Our team of fa&ccedil;ade specialists is ready to review your project requirements and provide a detailed technical proposal.</p>
@@ -851,23 +850,28 @@ const so=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){animat
 const sb=document.querySelector(".stats-bar");if(sb)so.observe(sb);
 document.querySelectorAll("a[href^=\"#\"]").forEach(a=>a.addEventListener("click",e=>{e.preventDefault();const t=document.querySelector(a.getAttribute("href"));if(t)t.scrollIntoView({behavior:"smooth"})}));
 
-// Set favicon and contact logo from existing logo image
+// Set favicon and inject contact logo from existing nav logo
 (function(){
-  var src = document.querySelector('.nav-logo-img').src;
+  var navImg = document.querySelector('.nav-logo-img');
+  if(!navImg) return;
+  var src = navImg.getAttribute('src');
+
   // Favicon
   var link = document.createElement('link');
-  link.rel = 'icon';
-  link.type = 'image/jpeg';
-  link.href = src;
+  link.rel = 'icon'; link.type = 'image/jpeg'; link.href = src;
   document.head.appendChild(link);
-  // Apple touch icon
   var apple = document.createElement('link');
-  apple.rel = 'apple-touch-icon';
-  apple.href = src;
+  apple.rel = 'apple-touch-icon'; apple.href = src;
   document.head.appendChild(apple);
-  // Contact section logo badge image
-  var cl = document.querySelector('.contact-logo-img');
-  if(cl) cl.src = src;
+
+  // Contact badge — clone nav logo, restyle for light background
+  var slot = document.querySelector('.contact-logo-slot');
+  if(slot){
+    var clone = navImg.cloneNode(false);
+    clone.removeAttribute('class');
+    clone.style.cssText = 'width:40px;height:40px;object-fit:contain;filter:sepia(1) saturate(0.8) brightness(0.45);flex-shrink:0';
+    slot.replaceWith(clone);
+  }
 })();
 </script>
 </body>
