@@ -549,6 +549,40 @@ footer{
   footer{flex-direction:column;text-align:center;padding:40px 22px}
 }
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+
+/* ── HERO CITYSCAPE ── */
+.hero-cityscape{
+  position:absolute;bottom:0;left:0;right:0;height:260px;
+  pointer-events:none;z-index:2;overflow:hidden;
+}
+.dubai-skyline{width:100%;height:100%;display:block}
+
+/* ── CITYSCAPE SECTION ── */
+.cityscape-wrap{background:var(--brown-deep);overflow:hidden;border-top:1px solid rgba(196,154,108,0.12)}
+.cityscape-header{text-align:center;padding:80px 60px 48px}
+.cityscape-header .section-title{color:var(--white-soft);margin-bottom:14px}
+.cityscape-header .section-title em{color:var(--brown-light)}
+.cityscape-header p{font-size:.85rem;line-height:1.85;color:var(--beige-dark);max-width:540px;margin:0 auto;letter-spacing:.02em}
+.landmark-row{display:flex;align-items:flex-end;gap:0;padding:0 60px}
+.landmark-card{
+  flex:1;display:flex;flex-direction:column;align-items:center;padding-bottom:36px;
+  border-right:1px solid rgba(196,154,108,0.1);position:relative;
+  transition:background .3s;
+}
+.landmark-card:last-child{border-right:none}
+.landmark-card:hover{background:rgba(196,154,108,0.05)}
+.landmark-svg{width:100%;height:190px;display:block}
+.landmark-label{
+  font-size:.64rem;letter-spacing:.28em;text-transform:uppercase;
+  color:var(--beige-dark);margin-top:18px;text-align:center;opacity:.75;
+}
+@media(max-width:768px){
+  .landmark-row{flex-wrap:wrap}
+  .landmark-card{flex:1 1 50%;border-bottom:1px solid rgba(196,154,108,0.1)}
+  .hero-cityscape{height:160px}
+  .cityscape-header{padding:56px 24px 36px}
+}
+
 </style>
 </head>
 <body>
@@ -591,6 +625,59 @@ footer{
     </div>
   </div>
   <div class="hero-scroll"><span>Scroll</span><div class="scroll-line"></div></div>
+
+<!-- Dubai Skyline Silhouette -->
+<div class="hero-cityscape" aria-hidden="true">
+<svg class="dubai-skyline" viewBox="0 0 1440 260" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMax meet">
+<defs>
+  <linearGradient id="bldFill" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0%" stop-color="rgba(196,154,108,0.38)"/>
+    <stop offset="60%" stop-color="rgba(139,94,60,0.72)"/>
+    <stop offset="100%" stop-color="rgba(44,26,14,1)"/>
+  </linearGradient>
+  <linearGradient id="cityGlow" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0%" stop-color="rgba(196,154,108,0)"/>
+    <stop offset="100%" stop-color="rgba(196,154,108,0.1)"/>
+  </linearGradient>
+</defs>
+<!-- Ambient city glow at base -->
+<rect x="0" y="220" width="1440" height="40" fill="url(#cityGlow)"/>
+<!-- Main skyline silhouette — single polygon tracing the roofline -->
+<polygon fill="url(#bldFill)" points="
+0,260 0,228 20,228 20,218 35,218 35,238 46,238 46,205 62,205 62,220 74,220
+74,192 88,192 88,208 100,208 100,180 115,180 115,196 128,196 128,172 145,172
+145,188 155,188 155,162 170,162 170,178 182,178 182,148 195,148 195,165 208,165
+208,140 222,140 222,156 232,156 232,128 242,128 242,112 246,112 246,96 250,96
+250,82 253,82 253,68 255,68 255,54 256,54 256.5,40 257,28 257.5,18 258,8
+258.5,0 259,8 259.5,18 260,28 260.5,40 261,54 261,68 263,68 263,82 267,82
+267,96 271,96 271,112 275,112 275,128 285,128 285,148 295,148 295,135 308,135
+308,115 314,115 314,100 317,100 317,88 320,88 320,74 322,74 322,60 323,60
+323,48 323.5,38 324,26 324.5,14 325,4 325.5,14 326,26 326.5,38 327,48 327,60
+328,60 328,74 330,74 330,88 333,88 333,100 336,100 336,115 342,115 342,135
+355,135 355,152 368,152 368,168 382,168 382,185 395,185 395,202 410,202
+410,220 425,220 425,238 438,238 438,260 448,260 448,245 453,245
+453,90 458,82 465,90 465,108 470,108 478,260 488,260 488,245 500,245
+500,232 512,232 512,245 525,245 525,260 532,260 532,228 545,228
+545,218 558,218 558,232 572,232 572,218 586,218 586,210 600,210 600,222
+614,222 614,208 628,208 628,220 642,220 642,205 656,205 656,218 670,218
+670,212 685,212 685,198 698,198 698,210 712,210 712,195 725,195 725,180
+738,180 738,165 752,165 752,178 765,178 765,160 778,160 778,174 792,174
+792,158 805,158 805,170 818,170 818,152 830,152 830,165 840,165
+840,148 850,148 850,135 860,135 860,120 868,120 868,132 875,132 875,120
+882,120 882,105 884,105 884,90 886,90 886,75 887,75 887,60 888,60 888,45
+889,45 889,30 890,30 890,18 891,10 892,4 892.5,0 893,4 894,10 895,18
+895,30 896,45 897,60 898,75 899,90 901,90 901,105 904,105 904,120 910,120
+910,132 918,132 918,118 928,118 928,104 938,104 938,118 948,118 948,135
+960,135 960,148 972,148 972,132 985,132 985,148 1000,148 1000,162
+1015,162 1015,148 1028,148 1028,162 1042,162 1042,148 1056,148 1056,165
+1070,165 1070,152 1084,152 1084,168 1098,168 1098,155 1112,155 1112,170
+1126,170 1126,158 1140,158 1140,172 1154,172 1154,185 1168,185 1168,172
+1182,172 1182,188 1196,188 1196,200 1210,200 1210,215 1225,215 1225,205
+1240,205 1240,220 1255,220 1255,208 1270,208 1270,225 1285,225 1285,238
+1300,238 1300,228 1315,228 1315,242 1330,242 1330,252 1345,252 1345,260
+1440,260"/>
+</svg>
+</div>
 </section>
 
 <!-- STATS -->
@@ -599,6 +686,68 @@ footer{
   <div class="stat-item"><div class="stat-num" data-target="15">0</div><div class="stat-label">Years of Expertise</div></div>
   <div class="stat-item"><div class="stat-num" data-target="50">0</div><div class="stat-label">Towers Glazed</div></div>
   <div class="stat-item"><div class="stat-num" data-target="7">0</div><div class="stat-label">Emirates Served</div></div>
+</div>
+
+<!-- DUBAI LANDMARKS CITYSCAPE -->
+<div class="cityscape-wrap">
+  <div class="cityscape-header reveal">
+    <div class="section-eyebrow">Where We Build</div>
+    <h2 class="section-title">Dubai's Iconic<br><em>Skyline</em></h2>
+    <p>For over 15 years EMC has shaped the skyline of the UAE — delivering high-performance aluminium framing and curtain-wall glazing systems across Dubai's most recognisable addresses.</p>
+  </div>
+  <div class="landmark-row">
+    <div class="landmark-card reveal">
+      <svg class="landmark-svg" viewBox="0 0 80 200" xmlns="http://www.w3.org/2000/svg">
+<defs><linearGradient id="lmg1" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="rgba(196,154,108,0.65)"/><stop offset="100%" stop-color="rgba(92,61,30,1)"/></linearGradient></defs>
+<path fill="url(#lmg1)" d="M40,0 L39,6 L38,15 L37,26 L36,38 L35,50 L34,62 L34,75 L33,88 L32,100 L31,112 L30,122 L29,132 L28,142 L27,152 L26,160 L24,168 L22,176 L18,184 L12,192 L6,200 L74,200 L68,192 L62,184 L58,176 L56,168 L54,160 L53,152 L52,142 L51,132 L50,122 L49,112 L48,100 L47,88 L46,75 L46,62 L45,50 L44,38 L43,26 L42,15 L41,6 Z"/>
+</svg>
+      <span class="landmark-label">Burj Khalifa District</span>
+    </div>
+    <div class="landmark-card reveal">
+      <svg class="landmark-svg" viewBox="0 0 80 200" xmlns="http://www.w3.org/2000/svg">
+<defs><linearGradient id="lmg2" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="rgba(196,154,108,0.65)"/><stop offset="100%" stop-color="rgba(92,61,30,1)"/></linearGradient></defs>
+<path fill="url(#lmg2)" d="M20,200 L20,40 L21,32 L24,22 L28,14 L33,8 L38,3 L42,0 L46,4 L52,12 L58,22 L64,180 L64,200 Z M20,200 L6,200 L6,185 L12,185 L12,200 Z M64,200 L74,200 L74,185 L68,185 L68,200 Z"/>
+</svg>
+      <span class="landmark-label">Jumeirah · Burj Al Arab</span>
+    </div>
+    <div class="landmark-card reveal">
+      <svg class="landmark-svg" viewBox="0 0 80 200" xmlns="http://www.w3.org/2000/svg">
+<defs><linearGradient id="lmg3" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="rgba(196,154,108,0.65)"/><stop offset="100%" stop-color="rgba(92,61,30,1)"/></linearGradient></defs>
+<rect fill="url(#lmg3)" x="5" y="45" width="22" height="155"/>
+<polygon fill="url(#lmg3)" points="5,45 16,20 27,45"/>
+<rect fill="url(#lmg3)" x="30" y="68" width="18" height="132"/>
+<polygon fill="url(#lmg3)" points="30,68 39,48 48,68"/>
+<rect fill="url(#lmg3)" x="52" y="30" width="24" height="170"/>
+<polygon fill="url(#lmg3)" points="52,30 64,5 76,30"/>
+<line x1="16" y1="20" x2="16" y2="0" stroke="rgba(196,154,108,0.7)" stroke-width="1.5"/>
+<line x1="39" y1="48" x2="39" y2="28" stroke="rgba(196,154,108,0.7)" stroke-width="1.5"/>
+<line x1="64" y1="5" x2="64" y2="-12" stroke="rgba(196,154,108,0.7)" stroke-width="1.5"/>
+</svg>
+      <span class="landmark-label">Dubai Marina</span>
+    </div>
+    <div class="landmark-card reveal">
+      <svg class="landmark-svg" viewBox="0 0 80 200" xmlns="http://www.w3.org/2000/svg">
+<defs><linearGradient id="lmg4" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="rgba(196,154,108,0.65)"/><stop offset="100%" stop-color="rgba(92,61,30,1)"/></linearGradient></defs>
+<rect fill="url(#lmg4)" x="22" y="58" width="36" height="142"/>
+<rect fill="url(#lmg4)" x="28" y="28" width="24" height="32"/>
+<rect fill="url(#lmg4)" x="34" y="8" width="12" height="22"/>
+<rect fill="url(#lmg4)" x="38" y="0" width="4" height="10"/>
+<rect fill="rgba(250,235,210,0.12)" x="26" y="70" width="6" height="8"/>
+<rect fill="rgba(250,235,210,0.12)" x="34" y="70" width="6" height="8"/>
+<rect fill="rgba(250,235,210,0.12)" x="42" y="70" width="6" height="8"/>
+<rect fill="rgba(250,235,210,0.12)" x="50" y="70" width="6" height="8"/>
+<rect fill="rgba(250,235,210,0.12)" x="26" y="86" width="6" height="8"/>
+<rect fill="rgba(250,235,210,0.12)" x="34" y="86" width="6" height="8"/>
+<rect fill="rgba(250,235,210,0.12)" x="42" y="86" width="6" height="8"/>
+<rect fill="rgba(250,235,210,0.12)" x="50" y="86" width="6" height="8"/>
+<rect fill="rgba(250,235,210,0.1)" x="26" y="102" width="6" height="8"/>
+<rect fill="rgba(250,235,210,0.1)" x="34" y="102" width="6" height="8"/>
+<rect fill="rgba(250,235,210,0.1)" x="42" y="102" width="6" height="8"/>
+<rect fill="rgba(250,235,210,0.1)" x="50" y="102" width="6" height="8"/>
+</svg>
+      <span class="landmark-label">Downtown Dubai</span>
+    </div>
+  </div>
 </div>
 
 <!-- SERVICES -->
