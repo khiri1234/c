@@ -516,6 +516,27 @@ footer{background:var(--bg-void);border-top:1px solid var(--border);padding:60px
 .reveal.visible{opacity:1;transform:translateY(0)}
 .d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}.d4{transition-delay:.4s}
 
+/* === IMPROVEMENTS === */
+#scroll-progress{position:fixed;top:0;left:0;height:2px;width:0%;background:linear-gradient(90deg,var(--gold-dark),var(--gold),var(--gold-light));z-index:2000;transition:width .1s linear;}
+#cursor{position:fixed;width:20px;height:20px;border:1px solid rgba(200,169,110,0.7);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:left .08s ease,top .08s ease,width .3s,height .3s,border-color .3s,opacity .3s;}
+body:has(a:hover) #cursor,body:has(button:hover) #cursor{width:36px;height:36px;border-color:var(--gold);}
+@media(hover:none){#cursor{display:none}}
+.nav-hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:6px;z-index:1001;}
+.nav-hamburger span{display:block;width:24px;height:1px;background:var(--text-primary);transition:all .3s;}
+.nav-hamburger.open span:nth-child(1){transform:rotate(45deg) translate(4px,4px)}
+.nav-hamburger.open span:nth-child(2){opacity:0;transform:scaleX(0)}
+.nav-hamburger.open span:nth-child(3){transform:rotate(-45deg) translate(4px,-4px)}
+.mobile-menu{position:fixed;inset:0;background:rgba(6,6,8,0.97);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);z-index:999;display:flex;flex-direction:column;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .4s;}
+.mobile-menu.open{opacity:1;pointer-events:all;}
+.mobile-menu ul{list-style:none;display:flex;flex-direction:column;align-items:center;gap:8px}
+.mobile-link{font-family:var(--font-display);font-size:clamp(2rem,8vw,3.5rem);font-weight:300;color:var(--text-primary);text-decoration:none;letter-spacing:.05em;transition:color .3s;padding:12px 0;display:block;}
+.mobile-link:hover{color:var(--gold)}
+.mobile-menu-footer{position:absolute;bottom:40px;font-size:.72rem;letter-spacing:.2em;color:var(--text-muted)}
+.nav-links a.active{color:var(--gold)}
+.project-num{position:absolute;top:16px;left:18px;font-family:var(--font-display);font-size:.7rem;letter-spacing:.22em;color:rgba(200,169,110,0.6);z-index:2;font-weight:400;}
+.projects-hint{display:flex;align-items:center;gap:10px;margin-top:20px;color:var(--text-muted);font-size:.62rem;letter-spacing:.24em;text-transform:uppercase;}
+.projects-hint svg{color:var(--gold-dark);opacity:.6}
+
 /* === RESPONSIVE === */
 @media(max-width:1100px){
   nav{padding:18px 32px}nav.scrolled{padding:14px 32px}
@@ -526,6 +547,7 @@ footer{background:var(--bg-void);border-top:1px solid var(--border);padding:60px
   .process-content{gap:60px}.contact-grid{gap:60px}.footer-grid{gap:40px}
 }
 @media(max-width:768px){
+  .nav-hamburger{display:flex}.nav-cta{display:none}
   nav{padding:16px 20px}nav.scrolled{padding:12px 20px}.nav-links{display:none}
   section{padding:72px 20px}
   .stats-bar{padding:36px 20px;grid-template-columns:repeat(2,1fr);gap:24px 0}
@@ -544,6 +566,8 @@ footer{background:var(--bg-void);border-top:1px solid var(--border);padding:60px
 </style>
 </head>
 <body>
+<div id="scroll-progress"></div>
+<div id="cursor"></div>
 
 <!-- NAVIGATION -->
 <nav id="nav">
@@ -558,8 +582,19 @@ footer{background:var(--bg-void);border-top:1px solid var(--border);padding:60px
     <li><a href="#about">About</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
+  <button class="nav-hamburger" id="nav-hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
   <button class="nav-cta" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Get a Quote</button>
 </nav>
+<div class="mobile-menu" id="mobile-menu">
+  <ul>
+    <li><a href="#services" class="mobile-link">Services</a></li>
+    <li><a href="#projects" class="mobile-link">Projects</a></li>
+    <li><a href="#process" class="mobile-link">Process</a></li>
+    <li><a href="#about" class="mobile-link">About</a></li>
+    <li><a href="#contact" class="mobile-link">Contact</a></li>
+  </ul>
+  <div class="mobile-menu-footer">info@emccontracting.ae</div>
+</div>
 
 <!-- HERO -->
 <section class="hero" id="hero">
@@ -666,6 +701,7 @@ footer{background:var(--bg-void);border-top:1px solid var(--border);padding:60px
   </div>
   <div class="projects-scroll reveal">
     <div class="project-card">
+      <div class="project-num">01</div>
       <div class="project-visual"><div class="facade f1"><div class="grid"></div><div class="sheen"></div></div></div>
       <div class="project-overlay">
         <div class="project-cat">Curtain Wall &middot; Dubai Marina</div>
@@ -675,6 +711,7 @@ footer{background:var(--bg-void);border-top:1px solid var(--border);padding:60px
       <div class="project-arrow"><svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
     </div>
     <div class="project-card">
+      <div class="project-num">02</div>
       <div class="project-visual"><div class="facade f2"><div class="panels"><div class="panel"></div><div class="panel"></div><div class="panel"></div><div class="panel"></div><div class="panel"></div><div class="panel"></div><div class="panel"></div><div class="panel"></div><div class="panel"></div><div class="panel"></div><div class="panel"></div><div class="panel"></div></div></div></div>
       <div class="project-overlay">
         <div class="project-cat">Commercial &middot; Abu Dhabi</div>
@@ -684,6 +721,7 @@ footer{background:var(--bg-void);border-top:1px solid var(--border);padding:60px
       <div class="project-arrow"><svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
     </div>
     <div class="project-card">
+      <div class="project-num">03</div>
       <div class="project-visual"><div class="facade f3"><div class="h-stripes"></div><div class="v-stripes"></div><div class="accent"></div></div></div>
       <div class="project-overlay">
         <div class="project-cat">Mixed-Use &middot; Sharjah</div>
@@ -693,6 +731,7 @@ footer{background:var(--bg-void);border-top:1px solid var(--border);padding:60px
       <div class="project-arrow"><svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
     </div>
     <div class="project-card">
+      <div class="project-num">04</div>
       <div class="project-visual"><div class="facade f4"><div class="floors"><div class="floor"></div><div class="floor"></div><div class="floor"></div><div class="floor"></div><div class="floor"></div><div class="floor"></div><div class="floor"></div><div class="floor"></div><div class="floor"></div><div class="floor"></div><div class="floor"></div><div class="floor"></div></div></div></div>
       <div class="project-overlay">
         <div class="project-cat">Residential &middot; Dubai</div>
@@ -702,6 +741,7 @@ footer{background:var(--bg-void);border-top:1px solid var(--border);padding:60px
       <div class="project-arrow"><svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
     </div>
     <div class="project-card">
+      <div class="project-num">05</div>
       <div class="project-visual"><div class="facade f5"><div class="steel"></div><div class="fill"></div></div></div>
       <div class="project-overlay">
         <div class="project-cat">Hospitality &middot; RAK</div>
@@ -711,6 +751,7 @@ footer{background:var(--bg-void);border-top:1px solid var(--border);padding:60px
       <div class="project-arrow"><svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
     </div>
     <div class="project-card">
+      <div class="project-num">06</div>
       <div class="project-visual"><div class="facade f6"><div class="night">
         <div class="w la"></div><div class="w"></div><div class="w lb"></div><div class="w la"></div><div class="w"></div>
         <div class="w"></div><div class="w lb"></div><div class="w"></div><div class="w la"></div><div class="w lb"></div>
@@ -730,6 +771,10 @@ footer{background:var(--bg-void);border-top:1px solid var(--border);padding:60px
       </div>
       <div class="project-arrow"><svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
     </div>
+  </div>
+  <div class="projects-hint reveal">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    <span>Drag to explore</span>
   </div>
 </section>
 
@@ -943,7 +988,7 @@ document.querySelectorAll(".reveal").forEach(el=>obs.observe(el));
 function animateCounters(){
   document.querySelectorAll(".stat-num[data-target]").forEach(el=>{
     const t=parseInt(el.dataset.target);
-    const suffix=t>=100?"+":(t<=7?"":"+");
+    const suffix="+";
     let c=0;const step=t/60;
     const ti=setInterval(()=>{
       c=Math.min(c+step,t);
@@ -984,6 +1029,74 @@ document.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener("click",
   el.addEventListener("mouseup",()=>{isDown=false});
   el.addEventListener("mousemove",e=>{if(!isDown)return;e.preventDefault();const x=e.pageX-el.offsetLeft;el.scrollLeft=scrollLeft-(x-startX)*1.5});
 })();
+
+// Scroll progress bar
+const progressBar=document.getElementById('scroll-progress');
+window.addEventListener('scroll',()=>{
+  const pct=window.scrollY/(document.documentElement.scrollHeight-window.innerHeight)*100;
+  progressBar.style.width=pct+'%';
+},{ passive:true });
+
+// Custom cursor
+const cursor=document.getElementById('cursor');
+if(cursor){
+  document.addEventListener('mousemove',e=>{cursor.style.left=e.clientX+'px';cursor.style.top=e.clientY+'px'},{passive:true});
+  document.addEventListener('mouseleave',()=>{cursor.style.opacity='0'});
+  document.addEventListener('mouseenter',()=>{cursor.style.opacity='1'});
+}
+
+// Mobile hamburger
+const hamburger=document.getElementById('nav-hamburger');
+const mobileMenu=document.getElementById('mobile-menu');
+if(hamburger&&mobileMenu){
+  hamburger.addEventListener('click',()=>{
+    hamburger.classList.toggle('open');
+    mobileMenu.classList.toggle('open');
+    document.body.style.overflow=mobileMenu.classList.contains('open')?'hidden':'';
+  });
+  document.querySelectorAll('.mobile-link').forEach(l=>l.addEventListener('click',()=>{
+    hamburger.classList.remove('open');
+    mobileMenu.classList.remove('open');
+    document.body.style.overflow='';
+  }));
+}
+
+// Active nav section
+const navSections=document.querySelectorAll('section[id]');
+const navLinks=document.querySelectorAll('.nav-links a[href^="#"]');
+const sectionObs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      navLinks.forEach(l=>l.classList.remove('active'));
+      const a=document.querySelector('.nav-links a[href="#'+e.target.id+'"]');
+      if(a)a.classList.add('active');
+    }
+  });
+},{threshold:.3});
+navSections.forEach(s=>sectionObs.observe(s));
+
+// Drag hint fade
+const scrollEl=document.querySelector('.projects-scroll');
+const hintEl=document.querySelector('.projects-hint');
+if(scrollEl&&hintEl)scrollEl.addEventListener('mousedown',()=>{hintEl.style.opacity='0';hintEl.style.transition='opacity .4s';},{once:true});
+
+// Form success state
+const submitBtn=document.querySelector('.form-submit');
+if(submitBtn)submitBtn.addEventListener('click',function(e){
+  e.preventDefault();
+  const form=this.closest('.contact-form');
+  if(form)form.innerHTML=`<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;min-height:420px;text-align:center;gap:24px;padding:48px 32px;">
+    <div style="width:60px;height:60px;border:1px solid var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#c8a96e" stroke-width="1.5"><polyline points="20 6 9 17 4 12"/></svg>
+    </div>
+    <div>
+      <div style="font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:300;color:#f0ece4;margin-bottom:10px">Enquiry Received</div>
+      <p style="font-size:.84rem;color:#8a8580;line-height:1.8;font-weight:300">Thank you. Our facade specialists will review your<br>project requirements and be in touch shortly.</p>
+    </div>
+    <div style="font-size:.62rem;letter-spacing:.28em;text-transform:uppercase;color:#9a7840">EMC Contracting &middot; UAE</div>
+  </div>`;
+});
+
 </script>
 </body>
 </html>
